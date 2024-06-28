@@ -3,6 +3,7 @@
 #include <string.h>
 #include <math.h>
 #include <unordered_map>
+#include "compress.h"
 using namespace std;
 
 unordered_map<char, string> hashmap;
@@ -106,16 +107,16 @@ void assign_codes(NODE root, string str) {
     }
 }
 
-int main(int argc, char* argv[]) {
+bool compressFile(const char* inFile) {
 
     // Validating if input is given
-    if (argc != 2) {
-        cout << "Invalid cmd line arg. Usage: .\a.exe <input file> \n";
-        return(1);
-    }
+    // if (argc != 2) {
+    //     cout << "Invalid cmd line arg. Usage: .\a.exe <input file> \n";
+    //     return(1);
+    // }
 
     // Opening input file
-    FILE *input = fopen(argv[1], "r");
+    FILE *input = fopen(inFile, "r");
     // Checking opened file
     if (input == NULL) {
         cout << "Error while opening the input file.\n";
@@ -123,7 +124,7 @@ int main(int argc, char* argv[]) {
     }
 
     // Naming the files
-    string in = argv[1];
+    string in = inFile;
     string filetype = in.substr(in.find_last_of(".")+1);
     cout << "File is of ." << filetype << " type. \n";
     string out = in.substr(0, in.find_last_of(".")) + "-compressed.bin";
@@ -160,7 +161,7 @@ int main(int argc, char* argv[]) {
         f_size++;
     }
     fclose(input);
-    FILE *input1 = fopen(argv[1], "r");
+    FILE *input1 = fopen(inFile, "r");
 
     // Declaring data structure
     HEAP heap = (HEAP)malloc(sizeof(struct Minheap));
@@ -237,6 +238,7 @@ int main(int argc, char* argv[]) {
     fclose(input1);
     fclose(output);
     cout<<"Compressed File successfully\n";
+    cout<<"File name (with path): "<<out.c_str()<<"\n";
 
-    return(0);
+    return 1;
 }

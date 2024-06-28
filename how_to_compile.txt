@@ -1,0 +1,4 @@
+g++ -c main.cpp -o main.o
+g++ -c ./includes/compress.cpp -o compress.o
+g++ -c ./includes/decompress.cpp -o decompress.o
+g++ main.o compress.o decompress.o -o BitBinder
